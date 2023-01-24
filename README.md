@@ -10,4 +10,4 @@
     "eslint-plugin-react-hooks"
     "lint-staged"
     "prettier"
-    "husky"
+    "husky"v 123
