@@ -24,7 +24,7 @@ module.exports = {
     'react/prop-types': 0,
     'no-plusplus': 0,
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
-    indent: ['error', 2],
+    // indent: ['error', 2],
     'prettier/prettier': 'error',
     'linebreak-style': [0, 'unix'],
     camelcase: 'off',

@@ -1,7 +1,12 @@
-import './style.css';
-
+/* eslint-disable import/no-extraneous-dependencies */
 import App from './components/app/App';
-import { createRoot } from 'react-dom/client';
+import { store } from './redux/index';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
 
-const root = document.getElementById('root');
-createRoot(root).render(<App />);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

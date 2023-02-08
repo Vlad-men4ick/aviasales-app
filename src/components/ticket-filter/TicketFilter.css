@@ -1,0 +1,20 @@
+.ticket-filter{
+    max-width: 700px;
+}
+.ticket-filter button{
+    transition: 0.3s;
+    font-family: 'Open Sans', sans-serif;;
+    display: inline-block;
+    width: 168px;
+    height: 50px;
+    background-color: #fff;
+    border: 1px solid #DFE5EC;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    line-height: 20px;
+    font-size: 13px;
+}
+.ticket-filter button:hover{
+    background-color: #2196F3;
+    color: #fff;
+}

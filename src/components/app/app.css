@@ -1,0 +1,16 @@
+body{
+    background-color: #F3F7FA;
+    color: #4A4A4A;
+    font-family: 'Open Sans', sans-serif;
+}
+.app{
+    width: 60%;
+    margin: 0 auto;
+}
+.logo{
+    display: block;
+    margin: 40px auto 10px;
+}
+.app-wrapper{
+    display: flex;
+}
