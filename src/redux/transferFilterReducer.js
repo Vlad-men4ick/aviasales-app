@@ -1,5 +1,5 @@
 /* eslint-disable default-param-last */
-const defaultState = [false, false, false, false, false];
+const defaultState = [true, true, true, true, true];
 
 const transferFilterReducer = (state = defaultState, action) => {
   switch (action.type) {

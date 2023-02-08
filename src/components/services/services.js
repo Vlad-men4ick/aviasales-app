@@ -1,4 +1,4 @@
-import { initSearchIdAction, getFirstTicketsAction } from '../../redux/actions';
+import { initSearchIdAction, getFirstTicketsAction, finishLoadingAction, onErrorAction } from '../../redux/actions';
 
 export const getSearchId = () => (dispatch) => {
   fetch('https://aviasales-test-api.kata.academy/search')
@@ -9,5 +9,12 @@ export const getSearchId = () => (dispatch) => {
 export const getFirstTickets = (searchId) => (dispatch) => {
   fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
     .then((response) => response.json())
-    .then((tickets) => dispatch(getFirstTicketsAction(tickets.tickets)));
+    .then((tickets) => {
+      dispatch(getFirstTicketsAction(tickets.tickets));
+      dispatch(finishLoadingAction);
+    })
+    .catch(() => {
+      dispatch(onErrorAction);
+      dispatch(finishLoadingAction);
+    });
 };
