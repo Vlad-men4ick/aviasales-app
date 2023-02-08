@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable import/no-extraneous-dependencies */
-import './app.css';
+import appClasses from './app.module.scss';
 import Logo from '../../img/Logo-svg.svg';
 import TransferFilter from '../transfer-filter/TransferFilter';
 import { getSearchId, getFirstTickets } from '../services/services';
@@ -14,21 +14,21 @@ function App() {
 
   useEffect(() => {
     dispatch(getSearchId());
-  }, []); // ??? dispatch
+  }, []);
 
   useEffect(() => {
     if (!searchId) return;
     dispatch(getFirstTickets(searchId));
-  }, [searchId]); // ??? dispatch
+  }, [searchId]);
 
   return (
-    <div className="app">
-      <img className="logo" src={Logo} alt="logo" />
+    <div className={appClasses.app}>
+      <img className={appClasses.logo} src={Logo} alt="logo" />
 
-      <div className="app-wrapper">
+      <div className={appClasses['app-wrapper']}>
         <TransferFilter />
 
-        <div className="main">
+        <div className={appClasses.main}>
           <TicketFilter />
         </div>
       </div>

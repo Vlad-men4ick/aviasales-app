@@ -1,5 +1,5 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import './TransferFilter.css';
+import transferFilter from './TransferFilter.module.scss';
 import * as actions from '../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -7,12 +7,12 @@ function TransferFilter() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
 
-  // console.log(selector);
+  console.log(transferFilter);
 
   return (
-    <div className="transfer-filter">
+    <div className={transferFilter['transfer-filter']}>
       <h4>КОЛИЧЕСТВО ПЕРЕСАДОК</h4>
-      <div className="transfer-filter-item">
+      <div className={transferFilter['transfer-filter-item']}>
         <input
           type="checkbox"
           checked={selector.transferFilter[0]}
@@ -22,7 +22,7 @@ function TransferFilter() {
         />
         <span>Все</span>
       </div>
-      <div className="transfer-filter-item">
+      <div className={transferFilter['transfer-filter-item']}>
         <input
           type="checkbox"
           checked={selector.transferFilter[1]}
@@ -32,7 +32,7 @@ function TransferFilter() {
         />
         <span>Без пересадок</span>
       </div>
-      <div className="transfer-filter-item">
+      <div className={transferFilter['transfer-filter-item']}>
         <input
           type="checkbox"
           checked={selector.transferFilter[2]}
@@ -42,7 +42,7 @@ function TransferFilter() {
         />
         <span>1 пересадка</span>
       </div>
-      <div className="transfer-filter-item">
+      <div className={transferFilter['transfer-filter-item']}>
         <input
           type="checkbox"
           checked={selector.transferFilter[3]}
@@ -52,7 +52,7 @@ function TransferFilter() {
         />
         <span>2 пересадки</span>
       </div>
-      <div className="transfer-filter-item">
+      <div className={transferFilter['transfer-filter-item']}>
         <input
           type="checkbox"
           checked={selector.transferFilter[4]}

@@ -1,15 +1,15 @@
-import './TicketFilter.css';
+import classes from './TicketFilter.module.scss';
 
 function TicketFilter() {
   return (
-    <div className="ticket-filter">
-      <button type="button" className="cheapest">
+    <div className={classes['ticket-filter']}>
+      <button type="button" className={classes.cheapest}>
         САМЫЙ ДЕШЕВЫЙ
       </button>
-      <button type="button" className="fastest">
+      <button type="button" className={classes.fastest}>
         САМЫЙ БЫСТРЫЙ
       </button>
-      <button type="button" className="optional">
+      <button type="button" className={classes.optional}>
         ОПТИМАЛЬНЫЙ
       </button>
     </div>
