@@ -14,15 +14,32 @@ export const finishLoadingAction = { type: 'FINISH-LOADING' };
 
 export const onErrorAction = { type: 'ERROR' };
 
-export const sortCheapTicketsAction = { type: 'SORT-CHEAP-TICKETS' };
+export const noSortTicketsAction = { type: 'NO-SORT' };
 
-export const sortFastTicketsAction = { type: 'SORT-FAST-TICKETS' };
+export const sortCheapTicketsAction = { type: 'CHEAP' };
 
-export const sortOptimalTicketsAction = { type: 'SORT-OPTIMAL-TICKETS' };
+export const sortFastTicketsAction = { type: 'FAST' };
+
+export const sortOptimalTicketsAction = { type: 'OPTIMAL' };
 
 export const showMoreAction = { type: 'SHOW-MORE' };
 
 export const backToFiveAction = { type: 'BACK-TO-5' };
+
+export const initRenderedTicketsAction = (payload) => ({
+  type: 'INIT',
+  payload,
+});
+
+export const setFilteredTicketsAction = (payload) => ({
+  type: 'FILTER',
+  payload,
+});
+
+export const setSortedTicketsAction = (payload) => ({
+  type: 'SORT',
+  payload,
+});
 
 export const initSearchIdAction = (payload) => ({
   type: 'INIT-SEARCH-ID',

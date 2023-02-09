@@ -1,8 +1,10 @@
 /* eslint-disable default-param-last */
-const defaultState = 'CHEAP';
+const defaultState = 'NO-SORT';
 
 const sortTicketsReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case 'NO-SORT':
+      return 'NO-SORT';
     case 'CHEAP':
       return 'CHEAP';
     case 'FAST':

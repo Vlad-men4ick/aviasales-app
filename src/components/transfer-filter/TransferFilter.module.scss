@@ -36,3 +36,28 @@
     letter-spacing: 0.5px;
 
 }
+
+.filter-checkbox[type = 'checkbox']{
+    display: none;
+}
+
+label{
+    padding-left: 20px;
+}
+
+label::before{
+    content: '';
+    background-image: url('../../img/input.png');
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    position: relative;
+    top: 5px;
+    margin-right: 10px;
+    margin-left: -10px;
+
+}
+
+input[type='checkbox']:checked + label::before{
+    background-image: url('../../img/checked-input.png');
+}

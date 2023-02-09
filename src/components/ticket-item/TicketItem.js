@@ -3,12 +3,6 @@ import { getHours, getMinutes, parseISO, addMinutes } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
 function TicketItem({ price, carrier, segments }) {
-  //   const ticketPrice = (price) => {
-  // console.log(price.toString().split("").splice(0, 0, "1", "2"));
-  // console.log(["1", "2", "3"].splice(2, 0));
-  //   };
-  //   console.log(segments);
-
   const getTimeDuration = (segment) => {
     const durationInMinutes = segments[segment].duration;
     const hours = Math.floor(durationInMinutes / 60);

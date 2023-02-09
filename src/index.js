@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import App from './components/app/App';
 import { store } from './redux/index';
 import ReactDOM from 'react-dom/client';

@@ -1,15 +1,16 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable import/order */
 import app from './app.module.scss';
 import Logo from '../../img/Logo-svg.svg';
 import TransferFilter from '../transfer-filter/TransferFilter';
 import TicketSort from '../ticket-sort/TicketSort';
 import TicketList from '../ticket-list/TicketList';
 import Spiner from '../spiner/spiner';
-import { useEffect } from 'react';
-// import 'antd/dist/antd'; ?????
-
 import { getSearchId, getFirstTickets } from '../services/services';
+import { initRenderedTicketsAction } from '../../redux/actions';
+import { useEffect } from 'react';
+// import 'antd/dist/antd.css';
+// подправить адаптивность и разобраться с фильтром пересадок
+
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
@@ -18,10 +19,12 @@ function App() {
   const searchId = useSelector((state) => state.searchId);
   const onloadingSelector = useSelector((state) => state.onLoad);
   const onErrorSelector = useSelector((state) => state.onError);
-  const quantityTicketsSelector = useSelector((state) => state.quantityTickets);
+  const stat = useSelector((state) => state);
+  console.log(stat);
+  // const quantityTicketsSelector = useSelector((state) => state.quantityTickets);
 
-  let ticketsSelector = useSelector((state) => state.tickets);
-  ticketsSelector = ticketsSelector.slice(0, quantityTicketsSelector);
+  const ticketsSelector = useSelector((state) => state.tickets);
+  // ticketsSelector = ticketsSelector.slice(0, quantityTicketsSelector);
 
   useEffect(() => {
     dispatch(getSearchId());
@@ -31,6 +34,10 @@ function App() {
     if (!searchId) return;
     dispatch(getFirstTickets(searchId));
   }, [dispatch, searchId]);
+
+  useEffect(() => {
+    dispatch(initRenderedTicketsAction(ticketsSelector));
+  }, [dispatch, ticketsSelector]);
 
   const errorDiv = () => (
     <div className={app['error-div']}>
@@ -47,13 +54,7 @@ function App() {
 
         <div className={app.main}>
           <TicketSort />
-          {onloadingSelector ? (
-            <Spiner />
-          ) : onErrorSelector ? (
-            errorDiv()
-          ) : (
-            <TicketList renderedTickets={ticketsSelector} />
-          )}
+          {onloadingSelector ? <Spiner /> : onErrorSelector ? errorDiv() : <TicketList />}
         </div>
       </div>
     </div>

@@ -1,54 +1,70 @@
-import './TicketSort.scss';
+/* eslint-disable import/no-extraneous-dependencies */
+import ticketSort from './TicketSort.module.scss';
 import {
   sortCheapTicketsAction,
   sortFastTicketsAction,
   sortOptimalTicketsAction,
   backToFiveAction,
+  setSortedTicketsAction,
 } from '../../redux/actions';
-import { useDispatch } from 'react-redux';
+import classNames from 'classnames';
+import { useDispatch, useSelector } from 'react-redux';
 
 function TicketFilter() {
   const dispatch = useDispatch();
+  const ticketsSelector = useSelector((state) => state.renderedTicket);
+  const selector = useSelector((state) => state);
 
-  // переписать на classNames и применить css-module к файлу!!!!
-  const changeActiveStyle = (idxBtn) => {
-    const buttons = document.querySelectorAll('.btn-sort');
-    const btnArr = [...buttons];
-    btnArr.map((item) => item.classList.remove('sort-active'));
-    btnArr[idxBtn].classList.add('sort-active');
+  const classCheapest = classNames('', { sortActive: selector.sort === 'CHEAP' });
+  const classFastest = classNames('', { sortActive: selector.sort === 'FAST' });
+  const classOptional = classNames('', { sortActive: selector.sort === 'OPTIMAL' });
+
+  const cheapSort = () => {
+    const cheapTickets = ticketsSelector.sort((prev, next) => prev.price - next.price);
+    dispatch(setSortedTicketsAction(cheapTickets));
+  };
+
+  const fastSort = () => {
+    const fastTickets = ticketsSelector.sort((prev, next) => prev.segments[0].duration - next.segments[0].duration);
+    dispatch(setSortedTicketsAction(fastTickets));
+  };
+
+  const optimalSort = () => {
+    const optimalTickets = ticketsSelector.sort((prev, next) => prev.carrier.localeCompare(next.carrier));
+    dispatch(setSortedTicketsAction(optimalTickets));
   };
 
   return (
-    <div className="ticket-filter">
+    <div className={ticketSort['ticket-filter']}>
       <button
         type="button"
-        className="btn-sort cheapest"
+        className={ticketSort[`${classCheapest}`]}
         onClick={() => {
-          changeActiveStyle(0);
           dispatch(backToFiveAction);
           dispatch(sortCheapTicketsAction);
+          cheapSort();
         }}
       >
         САМЫЙ ДЕШЕВЫЙ
       </button>
       <button
         type="button"
-        className="btn-sort fastest"
+        className={ticketSort[`${classFastest}`]}
         onClick={() => {
-          changeActiveStyle(1);
           dispatch(backToFiveAction);
           dispatch(sortFastTicketsAction);
+          fastSort();
         }}
       >
         САМЫЙ БЫСТРЫЙ
       </button>
       <button
         type="button"
-        className="btn-sort optional"
+        className={ticketSort[`${classOptional}`]}
         onClick={() => {
-          changeActiveStyle(2);
           dispatch(backToFiveAction);
           dispatch(sortOptimalTicketsAction);
+          optimalSort();
         }}
       >
         ОПТИМАЛЬНЫЙ
