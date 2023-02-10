@@ -3,6 +3,7 @@ import { getHours, getMinutes, parseISO, addMinutes } from 'date-fns';
 import { v4 as uuidv4 } from 'uuid';
 
 function TicketItem({ price, carrier, segments }) {
+  console.log(carrier);
   const getTimeDuration = (segment) => {
     const durationInMinutes = segments[segment].duration;
     const hours = Math.floor(durationInMinutes / 60);
@@ -40,10 +41,12 @@ function TicketItem({ price, carrier, segments }) {
       </span>
     ));
 
+  const URl_company_logo = new URL(`${carrier}.png`, 'https:pics.avs.io/99/36/');
+
   return (
     <div className={tickitItem['ticket-item']}>
       <h1 className={tickitItem['ticket-price']}>{price.toLocaleString('ru-RU')} Р</h1>
-      <img className={tickitItem['company-logo']} src={`https:pics.avs.io/99/36/${carrier}.png`} alt="logo" />
+      <img className={tickitItem['company-logo']} src={`${URl_company_logo}`} alt="logo" />
       <div className={tickitItem['ticket-to']}>
         <div className={tickitItem.way}>
           <h4>
