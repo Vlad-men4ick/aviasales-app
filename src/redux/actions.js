@@ -14,13 +14,13 @@ export const finishLoadingAction = { type: 'FINISH-LOADING' };
 
 export const onErrorAction = { type: 'ERROR' };
 
-export const noSortTicketsAction = { type: 'NO-SORT' };
-
 export const sortCheapTicketsAction = { type: 'CHEAP' };
 
 export const sortFastTicketsAction = { type: 'FAST' };
 
 export const sortOptimalTicketsAction = { type: 'OPTIMAL' };
+
+export const noSortTicketsAction = { type: 'NO-SORT' };
 
 export const showMoreAction = { type: 'SHOW-MORE' };
 
@@ -31,14 +31,16 @@ export const initRenderedTicketsAction = (payload) => ({
   payload,
 });
 
-export const setFilteredTicketsAction = (payload) => ({
+export const filteredTicketsAction = (payload, filter) => ({
   type: 'FILTER',
   payload,
+  filter,
 });
 
-export const setSortedTicketsAction = (payload) => ({
+export const sortedTicketsAction = (payload, sort) => ({
   type: 'SORT',
   payload,
+  sort,
 });
 
 export const initSearchIdAction = (payload) => ({
@@ -46,7 +48,11 @@ export const initSearchIdAction = (payload) => ({
   payload,
 });
 
-export const getFirstTicketsAction = (payload) => ({
-  type: 'GET-FIRST-TICKETS',
+export const getTicketsAction = (payload) => ({
+  type: 'GET-TICKETS',
   payload,
+});
+
+export const stopLoadTicketsAction = () => ({
+  type: 'TRUE',
 });

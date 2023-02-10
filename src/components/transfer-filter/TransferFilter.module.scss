@@ -12,6 +12,10 @@
 }
 .transfer-filter-item:hover{
     background-color: #F1FCFF;
+    margin-left: -10px;
+}
+.transfer-filter-container-item{
+  padding: 0 0 0 10px;
 }
 
 .transfer-filter-item{
@@ -21,6 +25,7 @@
     padding: 5px 0;
     padding-right:10px;
     margin-bottom: 5px;
+    font-weight: 400;
 }
 .transfer-filter-item input{
     display: inline-block;
@@ -34,7 +39,6 @@
     font-size: 14px;
     font-weight: 600;
     letter-spacing: 0.5px;
-
 }
 
 .filter-checkbox[type = 'checkbox']{
@@ -42,22 +46,56 @@
 }
 
 label{
+    cursor: pointer;
+    display: inline-block;
+    width: 100%;
     padding-left: 20px;
 }
 
 label::before{
+    background-image: url('../../img/input-svg.svg');
     content: '';
-    background-image: url('../../img/input.png');
     width: 20px;
     height: 20px;
     display: inline-block;
     position: relative;
     top: 5px;
     margin-right: 10px;
-    margin-left: -10px;
+    margin-left: -15px;
 
 }
 
 input[type='checkbox']:checked + label::before{
-    background-image: url('../../img/checked-input.png');
+    background-image: url('../../img/checkd-svg.svg');
+
+}
+
+@media(max-width: 820px) {
+  .transfer-filter h4{
+    position: relative;
+    padding: 5px 10px;
+    top: 10px;
+    margin: 10px auto;
+}
+  .transfer-filter{
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0px;
+    padding: 0;
+    height: auto;
+    margin-right: 0px;
+    margin: 0 auto;
+  }
+  .transfer-filter-item{
+    width: 150px;
+    margin-top: 0px;
+    display: block;
+    align-items: center;
+    padding: 5px 0;
+    margin-bottom: 5px;
+  }
+  .transfer-filter-container-item{
+    display: flex;
+    flex-wrap: wrap;
+  }
 }

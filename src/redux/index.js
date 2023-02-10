@@ -1,5 +1,4 @@
 /* eslint-disable import/prefer-default-export */
-// import { loggerMiddleware } from "../index";
 import searchIdReducer from './searchIdReducer';
 import ticketsReducer from './ticketsReducer';
 import transferFilterReducer from './transferFilterReducer';
@@ -8,6 +7,7 @@ import onErrorReducer from './onErrorReducer';
 import sortTicketsReducer from './sortTicketsReducer';
 import quantityTickets from './quantityTicketsReducer';
 import renderedTicketsReducer from './renderedTicketsReducer';
+import areAllTicketsLoaded from './areAllTicketsLoaded';
 import reduxThunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -21,12 +21,9 @@ const rootReducer = combineReducers({
   sort: sortTicketsReducer,
   quantityTickets,
   renderedTicket: renderedTicketsReducer,
+  allTicketsLoaded: areAllTicketsLoaded,
 });
 
-// const loggerMiddleware = () => (next) => (action) => {
-//   const result = next(action);
-//   // console.log("Middleware", store.getState());
-//   return result;
-// };
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(reduxThunk)));
 
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(reduxThunk)));
+export default store;

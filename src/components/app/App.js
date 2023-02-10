@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable import/named */
 /* eslint-disable no-nested-ternary */
 import app from './app.module.scss';
 import Logo from '../../img/Logo-svg.svg';
@@ -5,26 +7,24 @@ import TransferFilter from '../transfer-filter/TransferFilter';
 import TicketSort from '../ticket-sort/TicketSort';
 import TicketList from '../ticket-list/TicketList';
 import Spiner from '../spiner/spiner';
-import { getSearchId, getFirstTickets } from '../services/services';
-import { initRenderedTicketsAction } from '../../redux/actions';
+import ErrorBlock from '../error/ErrorBlock';
+import { getSearchId, getTickets } from '../../services/services';
+import { initRenderedTicketsAction, sortedTicketsAction, filteredTicketsAction } from '../../redux/actions';
 import { useEffect } from 'react';
-// import 'antd/dist/antd.css';
-// подправить адаптивность и разобраться с фильтром пересадок
 
 import { useDispatch, useSelector } from 'react-redux';
 
 function App() {
   const dispatch = useDispatch();
 
+  const areAllTicketsLoaded = useSelector((state) => state.allTicketsLoaded);
   const searchId = useSelector((state) => state.searchId);
   const onloadingSelector = useSelector((state) => state.onLoad);
   const onErrorSelector = useSelector((state) => state.onError);
-  const stat = useSelector((state) => state);
-  console.log(stat);
-  // const quantityTicketsSelector = useSelector((state) => state.quantityTickets);
-
-  const ticketsSelector = useSelector((state) => state.tickets);
-  // ticketsSelector = ticketsSelector.slice(0, quantityTicketsSelector);
+  const allTicketsSelector = useSelector((state) => state.tickets);
+  const transferFilterInputsSelector = useSelector((state) => state.transferFilter);
+  const sortTypeSelector = useSelector((state) => state.sort);
+  const renderedTicketsSelector = useSelector((state) => state.renderedTicket);
 
   useEffect(() => {
     dispatch(getSearchId());
@@ -32,29 +32,25 @@ function App() {
 
   useEffect(() => {
     if (!searchId) return;
-    dispatch(getFirstTickets(searchId));
+    dispatch(getTickets(searchId));
   }, [dispatch, searchId]);
 
   useEffect(() => {
-    dispatch(initRenderedTicketsAction(ticketsSelector));
-  }, [dispatch, ticketsSelector]);
-
-  const errorDiv = () => (
-    <div className={app['error-div']}>
-      Something gone wrong, <br /> please reload the page.
-    </div>
-  );
+    dispatch(initRenderedTicketsAction(allTicketsSelector));
+    dispatch(filteredTicketsAction(allTicketsSelector, transferFilterInputsSelector));
+    dispatch(sortedTicketsAction(renderedTicketsSelector, sortTypeSelector));
+  }, [allTicketsSelector, transferFilterInputsSelector, sortTypeSelector]);
 
   return (
-    <div className={app}>
+    <div className={app.app}>
       <img className={app.logo} src={Logo} alt="logo" />
 
       <div className={app['app-wrapper']}>
         <TransferFilter />
-
         <div className={app.main}>
           <TicketSort />
-          {onloadingSelector ? <Spiner /> : onErrorSelector ? errorDiv() : <TicketList />}
+          {areAllTicketsLoaded ? null : <Spiner />}
+          {onloadingSelector ? null : onErrorSelector ? <ErrorBlock /> : <TicketList />}
         </div>
       </div>
     </div>
