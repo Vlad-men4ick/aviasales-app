@@ -1,7 +1,5 @@
-/* eslint-disable array-callback-return */
-/* eslint-disable react-hooks/exhaustive-deps */
 import transferFilter from './TransferFilter.module.scss';
-import * as actions from '../../redux/actions';
+import * as actions from '../../redux/actions/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
 function TransferFilter() {
@@ -20,7 +18,6 @@ function TransferFilter() {
             id="1"
             onChange={() => {
               dispatch(actions.allTickets);
-              dispatch(actions.noSortTicketsAction);
             }}
           />
           <label htmlFor="1">Выбрать все</label>
@@ -33,7 +30,6 @@ function TransferFilter() {
             id="2"
             onChange={() => {
               dispatch(actions.noTransfers);
-              dispatch(actions.noSortTicketsAction);
             }}
           />
           <label htmlFor="2">Без пересадок</label>
@@ -46,7 +42,6 @@ function TransferFilter() {
             checked={selector.transferFilter[2]}
             onChange={() => {
               dispatch(actions.oneTransfer);
-              dispatch(actions.noSortTicketsAction);
             }}
           />
           <label htmlFor="3">1 пересадка</label>
@@ -59,7 +54,6 @@ function TransferFilter() {
             checked={selector.transferFilter[3]}
             onChange={() => {
               dispatch(actions.twoTransfers);
-              dispatch(actions.noSortTicketsAction);
             }}
           />
           <label htmlFor="4">2 пересадки</label>
@@ -72,7 +66,6 @@ function TransferFilter() {
             checked={selector.transferFilter[4]}
             onChange={() => {
               dispatch(actions.threeTransfers);
-              dispatch(actions.noSortTicketsAction);
             }}
           />
           <label htmlFor="5">3 пересадки</label>

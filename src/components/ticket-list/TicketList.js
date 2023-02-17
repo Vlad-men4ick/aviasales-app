@@ -1,37 +1,46 @@
-/* eslint-disable react/button-has-type */
+/* eslint-disable react-hooks/exhaustive-deps */
 import ticketListclass from './TicketList.module.scss';
 import TicketItem from '../ticket-item/TicketItem';
-import { showMoreAction } from '../../redux/actions';
 import NoTicketsAvialable from '../no-tickets/NoTicketsAvialable';
-import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+import useFilteredTickets from '../../utilitys/ticket-list/useFilteredTickets';
+import Spiner from '../spiner/spiner';
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 function TicketList() {
-  const dispatch = useDispatch();
-  const selector = useSelector((state) => state);
-  const quantityTickets = useSelector((state) => state.quantityTickets);
-  const renderedTicket = useSelector((state) => state.renderedTicket);
+  const status = useSelector((state) => state.status);
+  const ticketFilter = useSelector((state) => state.transferFilter);
+  const ticketSort = useSelector((state) => state.sort);
+  const arrTickets = useFilteredTickets();
 
-  const tickets = selector.renderedTicket
-    .slice(0, selector.quantityTickets)
-    .map((ticket) => <TicketItem key={uuidv4()} {...ticket} />);
+  const [quantity, setQuantity] = useState(5);
+
+  useEffect(() => {
+    setQuantity(5);
+  }, [ticketFilter, ticketSort]);
+
+  const tickets = arrTickets.slice(0, quantity).map((ticket) => {
+    const id = ticket.segments[0].date + ticket.segments[1].date;
+    return <TicketItem key={id} {...ticket} />;
+  });
 
   const showMore = (
-    <button type="button" className={ticketListclass['show-more-btn']} onClick={() => dispatch(showMoreAction)}>
+    <button type="button" className={ticketListclass['show-more-btn']} onClick={() => setQuantity((s) => s + 5)}>
       Показать еще 5 билетов!
     </button>
   );
 
   const ticketList = () => (
     <>
+      {status === 'LOADING' ? <Spiner /> : null}
       {tickets}
-      {quantityTickets >= renderedTicket.length ? null : showMore}
+      {showMore}
     </>
   );
 
   return (
     <div className={ticketListclass['ticket-wrapper']}>
-      {selector.renderedTicket.length === 0 ? <NoTicketsAvialable /> : ticketList()}
+      {!ticketFilter.includes(true) ? <NoTicketsAvialable /> : ticketList()}
     </div>
   );
 }

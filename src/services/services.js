@@ -1,20 +1,15 @@
-import {
-  initSearchIdAction,
-  getTicketsAction,
-  finishLoadingAction,
-  stopLoadTicketsAction,
-  onErrorAction,
-} from '../redux/actions';
+/* eslint-disable import/prefer-default-export */
+import { getTicketsAction, finishLoadingAction, onErrorAction } from '../redux/actions/actions';
 
 let countFetch = 10;
 
 const _baseURL = new URL('https://aviasales-test-api.kata.academy/');
 
-export const getSearchId = () => (dispatch) => {
+export const getSearchId = async () => {
   const getSearch_Id_URL = new URL('search', _baseURL);
-  fetch(`${getSearch_Id_URL}`)
-    .then((response) => response.json())
-    .then((search) => dispatch(initSearchIdAction(search.searchId)));
+  const response = await fetch(`${getSearch_Id_URL}`);
+  const search = await response.json();
+  return search;
 };
 
 export const getTickets = (searchId) => (dispatch) => {
@@ -30,10 +25,9 @@ export const getTickets = (searchId) => (dispatch) => {
     .then((tickets) => {
       if (!tickets.stop) {
         dispatch(getTicketsAction(tickets.tickets));
-        dispatch(finishLoadingAction);
         dispatch(getTickets(searchId));
       } else if (tickets.stop) {
-        dispatch(stopLoadTicketsAction());
+        dispatch(finishLoadingAction);
       }
     })
     .catch(() => {

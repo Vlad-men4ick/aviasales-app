@@ -1,11 +1,5 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import ticketSort from './TicketSort.module.scss';
-import {
-  sortCheapTicketsAction,
-  sortFastTicketsAction,
-  sortOptimalTicketsAction,
-  backToFiveAction,
-} from '../../redux/actions';
+import { sortCheapTicketsAction, sortFastTicketsAction, sortOptimalTicketsAction } from '../../redux/actions/actions';
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,7 +17,6 @@ function TicketFilter() {
         type="button"
         className={ticketSort[`${classCheapest}`]}
         onClick={() => {
-          dispatch(backToFiveAction);
           dispatch(sortCheapTicketsAction);
         }}
       >
@@ -33,7 +26,6 @@ function TicketFilter() {
         type="button"
         className={ticketSort[`${classFastest}`]}
         onClick={() => {
-          dispatch(backToFiveAction);
           dispatch(sortFastTicketsAction);
         }}
       >
@@ -43,7 +35,6 @@ function TicketFilter() {
         type="button"
         className={ticketSort[`${classOptional}`]}
         onClick={() => {
-          dispatch(backToFiveAction);
           dispatch(sortOptimalTicketsAction);
         }}
       >
