@@ -1,8 +1,4 @@
-import { useSelector } from 'react-redux';
-
-function useSortedTickets() {
-  const tickets = useSelector((state) => state.tickets);
-  const ticketSort = useSelector((state) => state.sort);
+function getSortedTickets(tickets, ticketSort) {
   const cheapSort = () => tickets.sort((prev, next) => prev.price - next.price);
 
   const fastSort = () => tickets.sort((prev, next) => prev.segments[0].duration - next.segments[0].duration);
@@ -20,7 +16,8 @@ function useSortedTickets() {
         return ticketSort;
     }
   };
+  // console.log('getSortedTickets');
   return sortTickets();
 }
 
-export default useSortedTickets;
+export default getSortedTickets;

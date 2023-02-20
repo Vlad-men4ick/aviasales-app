@@ -1,19 +1,24 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import ticketListclass from './TicketList.module.scss';
+import getSortedTickets from '../../utilitys/ticket-list/getSortedTickets';
 import TicketItem from '../ticket-item/TicketItem';
 import NoTicketsAvialable from '../no-tickets/NoTicketsAvialable';
-import useFilteredTickets from '../../utilitys/ticket-list/useFilteredTickets';
+import getFilteredTickets from '../../utilitys/ticket-list/getFilteredTickets';
 import Spiner from '../spiner/spiner';
 import { useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 
 function TicketList() {
   const status = useSelector((state) => state.status);
   const ticketFilter = useSelector((state) => state.transferFilter);
   const ticketSort = useSelector((state) => state.sort);
-  const arrTickets = useFilteredTickets();
-
+  const allTickets = useSelector((state) => state.tickets);
   const [quantity, setQuantity] = useState(5);
+
+  const arrSortTickets = useMemo(() => getSortedTickets(allTickets, ticketSort), [allTickets, ticketSort]);
+
+  const arrTickets = useMemo(() => getFilteredTickets(ticketFilter, arrSortTickets), [ticketFilter, arrSortTickets]);
+
+  // console.log(arrTickets);
 
   useEffect(() => {
     setQuantity(5);

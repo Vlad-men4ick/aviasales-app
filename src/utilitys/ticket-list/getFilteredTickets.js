@@ -1,9 +1,4 @@
-import useSortedTickets from './useSortedTickets';
-import { useSelector } from 'react-redux';
-
-const useFilteredTickets = () => {
-  const arrSortTickets = useSortedTickets();
-  const ticketFilter = useSelector((state) => state.transferFilter);
+const getFilteredTickets = (ticketFilter, arrSortTickets) => {
   const allFilter = () => arrSortTickets.filter((ticket) => ticket);
 
   const noTransfer = () => arrSortTickets.filter((ticket) => ticket.segments[0].stops.length === 0);
@@ -27,7 +22,8 @@ const useFilteredTickets = () => {
       resArr.push(...filterResult);
     }
   });
+  // console.log('getFilteredTickets');
   return [...resArr];
 };
 
-export default useFilteredTickets;
+export default getFilteredTickets;

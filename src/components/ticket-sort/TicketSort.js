@@ -3,7 +3,7 @@ import { sortCheapTicketsAction, sortFastTicketsAction, sortOptimalTicketsAction
 import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 
-function TicketFilter() {
+function TicketSort() {
   const dispatch = useDispatch();
   const selector = useSelector((state) => state);
 
@@ -44,4 +44,4 @@ function TicketFilter() {
   );
 }
 
-export default TicketFilter;
+export default TicketSort;
