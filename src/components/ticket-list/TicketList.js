@@ -21,7 +21,7 @@ function TicketList() {
 
   const tickets = arrTickets.slice(0, quantity).map((ticket) => {
     const id = ticket.segments[0].date + ticket.segments[1].date;
-    return <TicketItem key={id} {...ticket} />;
+    return <TicketItem key={id} {...ticket} id={id} />;
   });
 
   const showMore = (

@@ -7,15 +7,17 @@ import {
   transferInfo,
   getCompanyLogo,
 } from '../../utilitys/ticket-item/getDataTicket';
-import { generateUniqueID } from 'web-vitals/dist/modules/lib/generateUniqueID';
 
-function TicketItem({ price, carrier, segments }) {
+function TicketItem({ price, carrier, segments, id }) {
   const transferCities = (segment) =>
-    segments[segment].stops.map((city) => (
-      <span className={tickitItem['transfer-city']} key={generateUniqueID()}>
-        {city}
-      </span>
-    ));
+    segments[segment].stops.map((city, idx) => {
+      const idCity = `v${segment}-${id}-${city}-${idx}`;
+      return (
+        <span className={tickitItem['transfer-city']} key={idCity}>
+          {city}
+        </span>
+      );
+    });
 
   return (
     <div className={tickitItem['ticket-item']}>
